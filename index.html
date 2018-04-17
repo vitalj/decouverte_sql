@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Accès à la bdd testconsole avec PDO</title>
+  </head>
+  <body>
+    <?php
+      try {
+        $dbName = "acs";
+
+        $bdd = new PDO('mysql:host=localhost;dbname'.$dbName.';charset=utf8', 'root', '');
+
+      }
+      catch(exception $e) {
+        die('Erreur '.$e->getMessage());
+      }
+      $base->exec("SET CHARACTER SET utf8");
+      $retour = $base->query('SELECT * FROM testtable');
+      while ($data = $retour->fetch()){
+        echo $data['prenom'].' '.$data['nom'].' : connecté '.$data['compteurvisite'].' fois (dernière connexion le '.$data['dernierevisite'].')<br>';
+      }
+      $base = null;
+    ?>
+  </body>
+</html>
+
+
+$reponse=$bdd->query('SELECT departement.nom, membre.Nom,membre.Prenoms FROM membre INNER JOIN departement ON membre.idDep=departement.ID');
+
+// on affiche chaque rentnue une a une
+while($donnes= $reponse->fetch())
+{
+?>
+
+<p> <strong>Utilisateur:</strong></p>
+<?php echo '<strong> Prenom: </strong> '.$donnes['Prenoms'].' <strong> Nom: </strong> '.$donnes['Nom'].' <strong> Departement: </strong> '.$donnes['nom'];
+
+
+
+}
+
+?>
